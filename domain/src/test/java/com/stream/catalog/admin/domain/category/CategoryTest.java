@@ -26,7 +26,6 @@ class CategoryTest {
         Assertions.assertNull(actualCategory.getDeleteAt());
 
     }
-
     @Test
     public void givenInValidNullName_whenCallNewCategoryAndValidate_thenShouldReceiveError() {
         final String expectedName = null;
