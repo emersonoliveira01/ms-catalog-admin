@@ -4,7 +4,6 @@ import com.stream.catalog.admin.domain.exceptions.DomainException;
 import com.stream.catalog.admin.domain.validation.Error;
 import com.stream.catalog.admin.domain.validation.ValidationHandler;
 
-import java.time.DateTimeException;
 import java.util.List;
 
 public class ThrowsValidationHandler implements ValidationHandler {

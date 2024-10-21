@@ -2,7 +2,7 @@ package com.stream.catalog.admin.application.category.create;
 
 import com.stream.catalog.admin.domain.category.Category;
 import com.stream.catalog.admin.domain.category.CategoryGateway;
-import com.stream.catalog.admin.domain.validation.handler.ThrowsValidationHandler;
+import com.stream.catalog.admin.domain.validation.handler.Notification;
 
 import java.util.Objects;
 
@@ -10,7 +10,7 @@ public class DefaultCreateCategoryUseCase extends CreateCategoryUseCase {
 
     private final CategoryGateway categoryGateway;
 
-    public DefaultCreateCategoryUseCase(CategoryGateway categoryGateway) {
+    public DefaultCreateCategoryUseCase(final CategoryGateway categoryGateway) {
         this.categoryGateway = Objects.requireNonNull(categoryGateway);
     }
 
@@ -20,8 +20,14 @@ public class DefaultCreateCategoryUseCase extends CreateCategoryUseCase {
         final var aDescription = aCommand.description();
         final var isActive = aCommand.isActive();
 
+        final var notification = Notification.create();
+
         final var aCategory = Category.newCategory(aName, aDescription, isActive);
-        aCategory.validate(new ThrowsValidationHandler());
+        aCategory.validate(notification);
+
+        if (notification.hasError()) {
+
+        }
 
         return CreateCategoryOutput.from(this.categoryGateway.create(aCategory));
     }

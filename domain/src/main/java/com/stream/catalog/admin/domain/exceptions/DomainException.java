@@ -14,7 +14,7 @@ public class DomainException extends NoStackTraceException {
     }
 
     public static DomainException with(final List<Error> anErrors) {
-        return new DomainException("", anErrors);
+        return new DomainException("'name' should not be null", anErrors);
 
     }
 
