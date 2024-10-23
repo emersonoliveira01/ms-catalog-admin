@@ -44,7 +44,7 @@ public class UpdateCategoryUseCaseTest {
                 expectedIsActive
         );
 
-        when(categoryGateway.findById(eq(expectedId))).thenReturn(Optional.of(aCategory));
+        when(categoryGateway.findById(eq(expectedId))).thenReturn(Optional.of(aCategory.clone()));
         when(categoryGateway.update(any())).thenAnswer(returnsFirstArg());
 
         final var actualOutput = useCase.execute(aCommand).get();
@@ -60,7 +60,7 @@ public class UpdateCategoryUseCaseTest {
                                 && Objects.equals(expectedIsActive, aUpdatedCategory.isActive())
                                 && Objects.equals(expectedId, aUpdatedCategory.getId())
                                 && Objects.equals(aCategory.getCreatAt(), aUpdatedCategory.getCreatAt())
-                                && aCategory.getUpdateAt().isBefore(aUpdatedCategory.getUpdateAt()) //TODO fix assertion
+                                && aCategory.getUpdateAt().isBefore(aUpdatedCategory.getUpdateAt())
                                 && Objects.isNull(aUpdatedCategory.getDeleteAt())
                 ));
 
