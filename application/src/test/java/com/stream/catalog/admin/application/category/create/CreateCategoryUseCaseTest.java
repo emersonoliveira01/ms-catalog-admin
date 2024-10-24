@@ -51,7 +51,7 @@ public class CreateCategoryUseCaseTest {
                     return Objects.equals(expectedName, aCategory.getName())
                             && Objects.equals(expectedDescription, aCategory.getDescription())
                             && Objects.equals(expectedIsActive, aCategory.isActive())
-                            && Objects.nonNull(aCategory.getCreatAt())
+                            && Objects.nonNull(aCategory.getCreateAt())
                             && Objects.nonNull(aCategory.getUpdateAt())
                             && Objects.isNull(aCategory.getDeleteAt());
                 }));
@@ -99,7 +99,7 @@ public class CreateCategoryUseCaseTest {
                     return Objects.equals(expectedName, aCategory.getName())
                             && Objects.equals(expectedDescription, aCategory.getDescription())
                             && Objects.equals(expectedIsActive, aCategory.isActive())
-                            && Objects.nonNull(aCategory.getCreatAt())
+                            && Objects.nonNull(aCategory.getCreateAt())
                             && Objects.nonNull(aCategory.getUpdateAt())
                             && Objects.nonNull(aCategory.getDeleteAt());
                 }));
@@ -129,7 +129,7 @@ public class CreateCategoryUseCaseTest {
                     return Objects.equals(expectedName, aCategory.getName())
                             && Objects.equals(expectedDescription, aCategory.getDescription())
                             && Objects.equals(expectedIsActive, aCategory.isActive())
-                            && Objects.nonNull(aCategory.getCreatAt())
+                            && Objects.nonNull(aCategory.getCreateAt())
                             && Objects.nonNull(aCategory.getUpdateAt())
                             && Objects.isNull(aCategory.getDeleteAt());
                 }));

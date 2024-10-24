@@ -4,14 +4,13 @@ import com.stream.catalog.admin.domain.AggregateRoot;
 import com.stream.catalog.admin.domain.validation.ValidationHandler;
 
 import java.time.Instant;
-import java.util.UUID;
 
 public class Category extends AggregateRoot<CategoryID> implements Cloneable {
 
     private String name;
     private String description;
     private boolean active;
-    private Instant creatAt;
+    private Instant createAt;
     private Instant updateAt;
     private Instant deleteAt;
 
@@ -28,7 +27,7 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable {
         this.name = aName;
         this.description = aDescription;
         this.active = isActive;
-        this.creatAt = aCreationDate;
+        this.createAt = aCreationDate;
         this.updateAt = aUpdateDate;
         this.deleteAt = aDeleteDate;
     }
@@ -95,8 +94,8 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable {
         return active;
     }
 
-    public Instant getCreatAt() {
-        return creatAt;
+    public Instant getCreateAt() {
+        return createAt;
     }
 
     public Instant getUpdateAt() {

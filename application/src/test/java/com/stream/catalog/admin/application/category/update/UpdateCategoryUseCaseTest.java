@@ -68,7 +68,7 @@ public class UpdateCategoryUseCaseTest {
                                 && Objects.equals(expectedDescription, aUpdatedCategory.getDescription())
                                 && Objects.equals(expectedIsActive, aUpdatedCategory.isActive())
                                 && Objects.equals(expectedId, aUpdatedCategory.getId())
-                                && Objects.equals(aCategory.getCreatAt(), aUpdatedCategory.getCreatAt())
+                                && Objects.equals(aCategory.getCreateAt(), aUpdatedCategory.getCreateAt())
                                 && aCategory.getUpdateAt().isBefore(aUpdatedCategory.getUpdateAt())
                                 && Objects.isNull(aUpdatedCategory.getDeleteAt())
                 ));
@@ -137,7 +137,7 @@ public class UpdateCategoryUseCaseTest {
                                 && Objects.equals(expectedDescription, aUpdatedCategory.getDescription())
                                 && Objects.equals(expectedIsActive, aUpdatedCategory.isActive())
                                 && Objects.equals(expectedId, aUpdatedCategory.getId())
-                                && Objects.equals(aCategory.getCreatAt(), aUpdatedCategory.getCreatAt())
+                                && Objects.equals(aCategory.getCreateAt(), aUpdatedCategory.getCreateAt())
                                 && aCategory.getUpdateAt().isBefore(aUpdatedCategory.getUpdateAt())
                                 && Objects.nonNull(aUpdatedCategory.getDeleteAt())
         ));
@@ -177,7 +177,7 @@ public class UpdateCategoryUseCaseTest {
                                 && Objects.equals(expectedDescription, aUpdatedCategory.getDescription())
                                 && Objects.equals(expectedIsActive, aUpdatedCategory.isActive())
                                 && Objects.equals(expectedId, aUpdatedCategory.getId())
-                                && Objects.equals(aCategory.getCreatAt(), aUpdatedCategory.getCreatAt())
+                                && Objects.equals(aCategory.getCreateAt(), aUpdatedCategory.getCreateAt())
                                 && aCategory.getUpdateAt().isBefore(aUpdatedCategory.getUpdateAt())
                                 && Objects.isNull(aUpdatedCategory.getDeleteAt())
         ));
