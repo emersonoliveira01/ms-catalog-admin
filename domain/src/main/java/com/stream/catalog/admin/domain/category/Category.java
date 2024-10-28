@@ -10,9 +10,9 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable {
     private String name;
     private String description;
     private boolean active;
-    private Instant createAt;
-    private Instant updateAt;
-    private Instant deleteAt;
+    private Instant createdAt;
+    private Instant updatedAt;
+    private Instant deletedAt;
 
     private Category(
             final CategoryID anId,
@@ -27,9 +27,9 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable {
         this.name = aName;
         this.description = aDescription;
         this.active = isActive;
-        this.createAt = aCreationDate;
-        this.updateAt = aUpdateDate;
-        this.deleteAt = aDeleteDate;
+        this.createdAt = aCreationDate;
+        this.updatedAt = aUpdateDate;
+        this.deletedAt = aDeleteDate;
     }
 
     public static Category newCategory(final String aName, final String aDescription, final boolean isActive) {
@@ -39,24 +39,55 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable {
         return new Category(id, aName, aDescription, isActive, now, now, deleteAt);
     }
 
+    public static Category with(
+            final CategoryID anId,
+            final String name,
+            final String description,
+            final boolean active,
+            final Instant createdAt,
+            final Instant updatedAt,
+            final Instant deletedAt
+    ) {
+        return new Category(
+                anId,
+                name,
+                description,
+                active,
+                createdAt,
+                updatedAt,
+                deletedAt
+        );
+    }
+    public static Category with(final Category aCategory) {
+        return with(
+                aCategory.getId(),
+                aCategory.name,
+                aCategory.description,
+                aCategory.isActive(),
+                aCategory.createdAt,
+                aCategory.updatedAt,
+                aCategory.deletedAt
+        );
+    }
+
     public void validate(final ValidationHandler handler) {
         new CategoryValidator(this, handler).validate();
     }
 
     public Category activate() {
-        this.deleteAt = null;
+        this.deletedAt = null;
         this.active = true;
-        this.updateAt = Instant.now();
+        this.updatedAt = Instant.now();
         return this;
     }
 
     public Category deactivate() {
-        if (getDeleteAt() == null) {
-            this.deleteAt = Instant.now();
+        if (getDeletedAt() == null) {
+            this.deletedAt = Instant.now();
         }
 
         this.active = false;
-        this.updateAt = Instant.now();
+        this.updatedAt = Instant.now();
         return this;
     }
 
@@ -73,7 +104,7 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable {
 
         this.name = aName;
         this.description = aDescription;
-        this.updateAt = Instant.now();
+        this.updatedAt = Instant.now();
         return this;
 
     }
@@ -94,16 +125,16 @@ public class Category extends AggregateRoot<CategoryID> implements Cloneable {
         return active;
     }
 
-    public Instant getCreateAt() {
-        return createAt;
+    public Instant getCreatedAt() {
+        return createdAt;
     }
 
-    public Instant getUpdateAt() {
-        return updateAt;
+    public Instant getUpdatedAt() {
+        return updatedAt;
     }
 
-    public Instant getDeleteAt() {
-        return deleteAt;
+    public Instant getDeletedAt() {
+        return deletedAt;
     }
 
     @Override

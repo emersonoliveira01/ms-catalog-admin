@@ -19,8 +19,8 @@ public record CategoryListOutput(
                 aCategory.getName(),
                 aCategory.getDescription(),
                 aCategory.isActive(),
-                aCategory.getCreateAt(),
-                aCategory.getDeleteAt()
+                aCategory.getCreatedAt(),
+                aCategory.getDeletedAt()
         );
     }
 }

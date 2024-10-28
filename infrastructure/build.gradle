@@ -1,8 +1,18 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.flywaydb:flyway-mysql:10.20.0'
+    }
+}
+
 plugins {
     id 'java'
     id 'application'
     id 'org.springframework.boot' version '3.3.4'
     id 'io.spring.dependency-management' version '1.1.6'
+    id 'org.flywaydb.flyway' version '10.20.0'
 }
 
 group 'com.stream.catalog.admin.infrastructure'
@@ -29,6 +39,13 @@ dependencies {
     testRuntimeOnly('com.h2database:h2')
 
     }
+
+flyway {
+    url = System.getenv('FLYWAY_DB') ?: 'jdbc:mysql://localhost:3306/adm_videos'
+    user = System.getenv('FLYWAY_USER') ?: 'root'
+    password = System.getenv('FLYWAY_PASS') ?: '123456'
+    cleanDisabled = false
+}
 
 test {
     useJUnitPlatform()

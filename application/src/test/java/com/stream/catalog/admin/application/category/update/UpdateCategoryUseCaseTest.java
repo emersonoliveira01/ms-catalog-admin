@@ -68,9 +68,9 @@ public class UpdateCategoryUseCaseTest {
                                 && Objects.equals(expectedDescription, aUpdatedCategory.getDescription())
                                 && Objects.equals(expectedIsActive, aUpdatedCategory.isActive())
                                 && Objects.equals(expectedId, aUpdatedCategory.getId())
-                                && Objects.equals(aCategory.getCreateAt(), aUpdatedCategory.getCreateAt())
-                                && aCategory.getUpdateAt().isBefore(aUpdatedCategory.getUpdateAt())
-                                && Objects.isNull(aUpdatedCategory.getDeleteAt())
+                                && Objects.equals(aCategory.getCreatedAt(), aUpdatedCategory.getCreatedAt())
+                                && aCategory.getUpdatedAt().isBefore(aUpdatedCategory.getUpdatedAt())
+                                && Objects.isNull(aUpdatedCategory.getDeletedAt())
                 ));
 
     }
@@ -123,7 +123,7 @@ public class UpdateCategoryUseCaseTest {
         when(categoryGateway.update(any())).thenAnswer(returnsFirstArg());
 
         Assertions.assertTrue(aCategory.isActive());
-        Assertions.assertNull(aCategory.getDeleteAt());
+        Assertions.assertNull(aCategory.getDeletedAt());
 
         final var actualOutput = useCase.execute(aCommand).get();
 
@@ -137,9 +137,9 @@ public class UpdateCategoryUseCaseTest {
                                 && Objects.equals(expectedDescription, aUpdatedCategory.getDescription())
                                 && Objects.equals(expectedIsActive, aUpdatedCategory.isActive())
                                 && Objects.equals(expectedId, aUpdatedCategory.getId())
-                                && Objects.equals(aCategory.getCreateAt(), aUpdatedCategory.getCreateAt())
-                                && aCategory.getUpdateAt().isBefore(aUpdatedCategory.getUpdateAt())
-                                && Objects.nonNull(aUpdatedCategory.getDeleteAt())
+                                && Objects.equals(aCategory.getCreatedAt(), aUpdatedCategory.getCreatedAt())
+                                && aCategory.getUpdatedAt().isBefore(aUpdatedCategory.getUpdatedAt())
+                                && Objects.nonNull(aUpdatedCategory.getDeletedAt())
         ));
 
     }
@@ -177,9 +177,9 @@ public class UpdateCategoryUseCaseTest {
                                 && Objects.equals(expectedDescription, aUpdatedCategory.getDescription())
                                 && Objects.equals(expectedIsActive, aUpdatedCategory.isActive())
                                 && Objects.equals(expectedId, aUpdatedCategory.getId())
-                                && Objects.equals(aCategory.getCreateAt(), aUpdatedCategory.getCreateAt())
-                                && aCategory.getUpdateAt().isBefore(aUpdatedCategory.getUpdateAt())
-                                && Objects.isNull(aUpdatedCategory.getDeleteAt())
+                                && Objects.equals(aCategory.getCreatedAt(), aUpdatedCategory.getCreatedAt())
+                                && aCategory.getUpdatedAt().isBefore(aUpdatedCategory.getUpdatedAt())
+                                && Objects.isNull(aUpdatedCategory.getDeletedAt())
         ));
     }
 

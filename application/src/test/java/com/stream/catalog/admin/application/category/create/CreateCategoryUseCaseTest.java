@@ -51,9 +51,9 @@ public class CreateCategoryUseCaseTest {
                     return Objects.equals(expectedName, aCategory.getName())
                             && Objects.equals(expectedDescription, aCategory.getDescription())
                             && Objects.equals(expectedIsActive, aCategory.isActive())
-                            && Objects.nonNull(aCategory.getCreateAt())
-                            && Objects.nonNull(aCategory.getUpdateAt())
-                            && Objects.isNull(aCategory.getDeleteAt());
+                            && Objects.nonNull(aCategory.getCreatedAt())
+                            && Objects.nonNull(aCategory.getUpdatedAt())
+                            && Objects.isNull(aCategory.getDeletedAt());
                 }));
 
     }
@@ -99,9 +99,9 @@ public class CreateCategoryUseCaseTest {
                     return Objects.equals(expectedName, aCategory.getName())
                             && Objects.equals(expectedDescription, aCategory.getDescription())
                             && Objects.equals(expectedIsActive, aCategory.isActive())
-                            && Objects.nonNull(aCategory.getCreateAt())
-                            && Objects.nonNull(aCategory.getUpdateAt())
-                            && Objects.nonNull(aCategory.getDeleteAt());
+                            && Objects.nonNull(aCategory.getCreatedAt())
+                            && Objects.nonNull(aCategory.getUpdatedAt())
+                            && Objects.nonNull(aCategory.getDeletedAt());
                 }));
 
     }
@@ -129,9 +129,9 @@ public class CreateCategoryUseCaseTest {
                     return Objects.equals(expectedName, aCategory.getName())
                             && Objects.equals(expectedDescription, aCategory.getDescription())
                             && Objects.equals(expectedIsActive, aCategory.isActive())
-                            && Objects.nonNull(aCategory.getCreateAt())
-                            && Objects.nonNull(aCategory.getUpdateAt())
-                            && Objects.isNull(aCategory.getDeleteAt());
+                            && Objects.nonNull(aCategory.getCreatedAt())
+                            && Objects.nonNull(aCategory.getUpdatedAt())
+                            && Objects.isNull(aCategory.getDeletedAt());
                 }));
     }
 
