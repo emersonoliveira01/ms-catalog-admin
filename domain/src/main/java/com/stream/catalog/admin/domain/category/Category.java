@@ -1,18 +1,19 @@
 package com.stream.catalog.admin.domain.category;
 
 import com.stream.catalog.admin.domain.AggregateRoot;
+import com.stream.catalog.admin.domain.validation.ValidationHandler;
 
 import java.time.Instant;
-import java.util.UUID;
+import java.util.Objects;
 
-public class Category extends AggregateRoot<CategoryID> {
+public class Category extends AggregateRoot<CategoryID> implements Cloneable {
 
     private String name;
     private String description;
     private boolean active;
-    private Instant creatAt;
-    private Instant updateAt;
-    private Instant deleteAt;
+    private Instant createdAt;
+    private Instant updatedAt;
+    private Instant deletedAt;
 
     private Category(
             final CategoryID anId,
@@ -27,15 +28,86 @@ public class Category extends AggregateRoot<CategoryID> {
         this.name = aName;
         this.description = aDescription;
         this.active = isActive;
-        this.creatAt = aCreationDate;
-        this.updateAt = aUpdateDate;
-        this.deleteAt = aDeleteDate;
+        this.createdAt = Objects.requireNonNull(aCreationDate, "'createdAt' should not be null");
+        this.updatedAt = Objects.requireNonNull(aUpdateDate, "'updatedAt' should not be null");
+        this.deletedAt = aDeleteDate;
     }
 
     public static Category newCategory(final String aName, final String aDescription, final boolean isActive) {
         final var id = CategoryID.unique();
         final var now = Instant.now();
-        return new Category(id, aName, aDescription, isActive, now, now, null);
+        final var deleteAt = isActive ? null : now;
+        return new Category(id, aName, aDescription, isActive, now, now, deleteAt);
+    }
+
+    public static Category with(
+            final CategoryID anId,
+            final String name,
+            final String description,
+            final boolean active,
+            final Instant createdAt,
+            final Instant updatedAt,
+            final Instant deletedAt
+    ) {
+        return new Category(
+                anId,
+                name,
+                description,
+                active,
+                createdAt,
+                updatedAt,
+                deletedAt
+        );
+    }
+    public static Category with(final Category aCategory) {
+        return with(
+                aCategory.getId(),
+                aCategory.name,
+                aCategory.description,
+                aCategory.isActive(),
+                aCategory.createdAt,
+                aCategory.updatedAt,
+                aCategory.deletedAt
+        );
+    }
+
+    public void validate(final ValidationHandler handler) {
+        new CategoryValidator(this, handler).validate();
+    }
+
+    public Category activate() {
+        this.deletedAt = null;
+        this.active = true;
+        this.updatedAt = Instant.now();
+        return this;
+    }
+
+    public Category deactivate() {
+        if (getDeletedAt() == null) {
+            this.deletedAt = Instant.now();
+        }
+
+        this.active = false;
+        this.updatedAt = Instant.now();
+        return this;
+    }
+
+    public Category update(
+            final String aName,
+            final String aDescription,
+            final boolean isActive
+    ) {
+        if (isActive) {
+            activate();
+        } else {
+            deactivate();
+        }
+
+        this.name = aName;
+        this.description = aDescription;
+        this.updatedAt = Instant.now();
+        return this;
+
     }
 
     public CategoryID getId() {
@@ -54,15 +126,24 @@ public class Category extends AggregateRoot<CategoryID> {
         return active;
     }
 
-    public Instant getCreatAt() {
-        return creatAt;
+    public Instant getCreatedAt() {
+        return createdAt;
     }
 
-    public Instant getUpdateAt() {
-        return updateAt;
+    public Instant getUpdatedAt() {
+        return updatedAt;
     }
 
-    public Instant getDeleteAt() {
-        return deleteAt;
+    public Instant getDeletedAt() {
+        return deletedAt;
+    }
+
+    @Override
+    public Category clone() {
+        try {
+            return (Category) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
     }
 }
