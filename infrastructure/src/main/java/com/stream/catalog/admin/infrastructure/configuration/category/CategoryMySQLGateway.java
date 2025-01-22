@@ -26,8 +26,10 @@ public class CategoryMySQLGateway implements CategoryGateway {
     }
 
     @Override
-    public void deleteById(CategoryID anId) {
-
+    public void deleteById(final CategoryID anId) {
+        if (this.repository.existsById(anId.getValue())) {
+            this.repository.deleteById(anId.getValue());
+        }
     }
 
     @Override

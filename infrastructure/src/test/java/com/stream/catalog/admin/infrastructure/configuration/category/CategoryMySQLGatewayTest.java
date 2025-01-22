@@ -1,6 +1,7 @@
 package com.stream.catalog.admin.infrastructure.configuration.category;
 
 import com.stream.catalog.admin.domain.category.Category;
+import com.stream.catalog.admin.domain.category.CategoryID;
 import com.stream.catalog.admin.infrastructure.MySQLGatewayTest;
 import com.stream.catalog.admin.infrastructure.configuration.category.persistence.CategoryJpaEntity;
 import com.stream.catalog.admin.infrastructure.configuration.category.persistence.CategoryRepository;
@@ -93,6 +94,31 @@ class CategoryMySQLGatewayTest {
         Assertions.assertTrue(category.getUpdatedAt().isBefore(actualEntity.getUpdatedAt()));
         Assertions.assertEquals(category.getDeletedAt(), actualEntity.getDeletedAt());
         Assertions.assertNull(actualEntity.getDeletedAt());
+    }
+
+    @Test
+    public void givenAPrePersistedCategoryAndValidCategoryId_whenTryToDeleteIt_shouldDeleteCategory() {
+        final var category = Category.newCategory("Filmes", null, true);
+
+        Assertions.assertEquals(0, categoryRepository.count());
+
+        categoryRepository.saveAndFlush(CategoryJpaEntity.from(category));
+
+        Assertions.assertEquals(1, categoryRepository.count());
+
+        categoryMySQLGateway.deleteById(category.getId());
+
+        Assertions.assertEquals(0, categoryRepository.count());
+
+    }
+
+    @Test
+    public void givenInvalidCategoryId_whenTryToDeleteIt_shouldDeleteCategory() {
+        Assertions.assertEquals(0, categoryRepository.count());
+
+        categoryMySQLGateway.deleteById(CategoryID.from("invalid"));
+
+        Assertions.assertEquals(0, categoryRepository.count());
     }
 
 }
